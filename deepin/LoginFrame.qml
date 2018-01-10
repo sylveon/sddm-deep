@@ -72,7 +72,7 @@ Item {
                 horizontalCenter: parent.horizontalCenter
             }
 
-            text: userFrame.currentRealName
+            text: (userFrame.currentRealName === "") ? userFrame.currentUserName : userFrame.currentRealName
             color: textColor
             font.pointSize: 15
         }
