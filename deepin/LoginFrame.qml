@@ -5,7 +5,6 @@ import SddmComponents 2.0
 Item {
     id: frame
     property int sessionIndex: sessionModel.lastIndex
-    property string userName: userModel.lastUser
     property bool isProcessing: glowAnimation.running
     property alias input: passwdInput
     property alias button: loginButton
@@ -73,7 +72,7 @@ Item {
                 horizontalCenter: parent.horizontalCenter
             }
 
-            text: userName
+            text: userFrame.currentRealName
             color: textColor
             font.pointSize: 15
         }
@@ -113,7 +112,7 @@ Item {
                 }
                 onAccepted: {
                     glowAnimation.running = true
-                    sddm.login(userNameText.text, passwdInput.text, sessionIndex)
+                    sddm.login(userFrame.currentUserName, passwdInput.text, sessionIndex)
                 }
                 KeyNavigation.backtab: {
                     if (sessionButton.visible) {
@@ -147,7 +146,7 @@ Item {
                 pressImg: "icons/login_press.png"
                 onClicked: {
                     glowAnimation.running = true
-                    sddm.login(userNameText.text, passwdInput.text, sessionIndex)
+                    sddm.login(userFrame.currentUserName, passwdInput.text, sessionIndex)
                 }
                 KeyNavigation.tab: shutdownButton
                 KeyNavigation.backtab: passwdInput

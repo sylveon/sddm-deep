@@ -9,6 +9,7 @@ Item {
     readonly property int m_viewMaxWidth: frame.width - prevUser.width - nextUser.width - 130
     property string currentIconPath: usersList.currentItem.iconPath
     property string currentUserName: usersList.currentItem.userName
+    property string currentRealName: usersList.currentItem.realUserName
     property bool shouldShowBG: false
     property alias currentItem: usersList.currentItem
 
@@ -54,6 +55,7 @@ Item {
             id: item
             property string iconPath: icon
             property string userName: name
+            property string realUserName: realName
             property bool activeBG: usersList.currentIndex === index && shouldShowBG
 
             border.width: 3
@@ -69,6 +71,7 @@ Item {
                 usersList.currentIndex = index
                 currentIconPath = icon
                 currentUserName = name
+                currentRealName = realName
             }
 
             UserAvatar {
