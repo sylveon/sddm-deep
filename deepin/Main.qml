@@ -133,7 +133,6 @@ Rectangle {
                 onSelected: {
                     console.log("Select user:", userName)
                     root.state = "stateLogin"
-                    loginFrame.userName = userName
                     loginFrame.input.forceActiveFocus()
                 }
                 onNeedClose: {

@@ -10,15 +10,10 @@ Item {
     property string currentIconPath: usersList.currentItem.iconPath
     property string currentUserName: usersList.currentItem.userName
     property string currentRealName: usersList.currentItem.realUserName
-    property bool shouldShowBG: false
     property alias currentItem: usersList.currentItem
 
     function isMultipleUsers() {
         return usersList.count > 1
-    }
-
-    onOpacityChanged: {
-        shouldShowBG = false
     }
 
     onFocusChanged: {
@@ -37,7 +32,6 @@ Item {
         normalImg: "icons/angle-left.png"
         onClicked: {
             usersList.decrementCurrentIndex()
-            shouldShowBG = true
         }
     }
 
@@ -45,7 +39,7 @@ Item {
         id: usersList
         anchors.centerIn: parent
         width: childrenRect.width > m_viewMaxWidth ? m_viewMaxWidth : childrenRect.width
-        height: 160
+        height: 170
         model: userModel
         clip: true
         spacing: 10
@@ -56,12 +50,8 @@ Item {
             property string iconPath: icon
             property string userName: name
             property string realUserName: realName
-            property bool activeBG: usersList.currentIndex === index && shouldShowBG
 
-            border.width: 3
-            border.color: activeBG || focus ? "#33ffffff" : "transparent"
-            radius: 8
-            color: activeBG || focus? "#55000000" : "transparent"
+            color: "transparent"
 
             width: 130
             height: parent.height
@@ -87,7 +77,7 @@ Item {
             Text {
                 id: nameText
                 width: parent.width
-                anchors.bottom: parent.bottom
+                y: 120
                 anchors.horizontalCenter: parent.horizontalCenter
                 horizontalAlignment: Text.AlignHCenter
                 text: (realName === "") ? name : realName
@@ -125,7 +115,6 @@ Item {
         normalImg: "icons/angle-right.png"
         onClicked: {
             usersList.incrementCurrentIndex()
-            shouldShowBG = true
         }
     }
 
