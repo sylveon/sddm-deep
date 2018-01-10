@@ -174,7 +174,7 @@ Rectangle {
                 color: textColor
 
                 function updateTime() {
-                    text = new Date().toLocaleString(Qt.locale("en_US"), "hh:mm")
+                    text = new Date().toLocaleTimeString(Locale.ShortFormat)
                 }
             }
 
@@ -191,7 +191,7 @@ Rectangle {
                 color: textColor
 
                 function updateDate() {
-                    text = new Date().toLocaleString(Qt.locale("en_US"), "yyyy-MM-dd dddd")
+                    text = new Date().toLocaleDateString()
                 }
             }
 
