@@ -53,7 +53,7 @@ Item {
         delegate: Rectangle {
             id: item
             property string iconPath: icon
-            property string userName: nameText.text
+            property string userName: name
             property bool activeBG: usersList.currentIndex === index && shouldShowBG
 
             border.width: 3
