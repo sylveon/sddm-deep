@@ -44,7 +44,7 @@ Item {
         id: usersList
         anchors.centerIn: parent
         width: childrenRect.width > m_viewMaxWidth ? m_viewMaxWidth : childrenRect.width
-        height: 150
+        height: 160
         model: userModel
         clip: true
         spacing: 10
@@ -62,7 +62,7 @@ Item {
             color: activeBG || focus? "#55000000" : "transparent"
 
             width: 130
-            height: 150
+            height: parent.height
 
             function select() {
                 selected(name)
@@ -87,8 +87,8 @@ Item {
                 anchors.bottom: parent.bottom
                 anchors.horizontalCenter: parent.horizontalCenter
                 horizontalAlignment: Text.AlignHCenter
-                text: name
-                font.pointSize: 15
+                text: (realName === "") ? name : realName
+                font.pointSize: 14
                 color: "white"
                 wrapMode: Text.WordWrap
             }
