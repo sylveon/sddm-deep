@@ -9,6 +9,8 @@ Canvas {
     onSourceChanged: delayPaintTimer.running = true
     onPaint: {
         var ctx = getContext("2d");
+        ctx.clearRect(0, 0, width, height)
+        ctx.moveTo(0.5, 0.5) // """Anti-aliasing"""
         ctx.beginPath()
         ctx.ellipse(2, 2, width - 4, height - 4)
         ctx.clip()
@@ -16,6 +18,7 @@ Canvas {
         ctx.strokeStyle = "#ffffff"
         ctx.lineWidth = 8
         ctx.stroke()
+        ctx.closePath()
     }
 
     MouseArea {
