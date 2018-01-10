@@ -85,24 +85,6 @@ Item {
                 color: "white"
                 wrapMode: Text.WordWrap
             }
-
-            Keys.onLeftPressed: {
-                usersList.decrementCurrentIndex()
-                usersList.currentItem.forceActiveFocus()
-            }
-            Keys.onRightPressed: {
-                usersList.incrementCurrentIndex()
-                usersList.currentItem.forceActiveFocus()
-            }
-            Keys.onEscapePressed: needClose()
-            Keys.onEnterPressed: item.select()
-            Keys.onReturnPressed: item.select()
-
-            Component.onCompleted: {
-                if (name === userModel.lastUser) {
-                    item.select()
-                }
-            }
         }
     }
 

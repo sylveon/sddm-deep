@@ -3,7 +3,6 @@ import QtQuick 2.2
 Canvas {
     id: avatar
     property string source: ""
-    property color m_strokeStyle: "#ffffff"
 
     signal clicked()
 
@@ -11,25 +10,16 @@ Canvas {
     onPaint: {
         var ctx = getContext("2d");
         ctx.beginPath()
-        ctx.ellipse(0, 0, width, height)
+        ctx.ellipse(1, 1, width - 2, height - 2)
         ctx.clip()
-        ctx.drawImage(source, 0, 0, width, height)
-        ctx.strokeStyle = avatar.m_strokeStyle
+        ctx.drawImage(source, 1, 1, width - 2, height - 2)
+        ctx.strokeStyle = "#ffffff"
         ctx.lineWidth = 6
         ctx.stroke()
     }
 
     MouseArea {
         anchors.fill: parent
-        hoverEnabled: true
-        onEntered: {
-            m_strokeStyle = "#77ffffff"
-            avatar.requestPaint()
-        }
-        onExited: {
-            m_strokeStyle = "#ffffffff"
-            avatar.requestPaint()
-        }
         onClicked: avatar.clicked()
     }
 
