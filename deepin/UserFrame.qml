@@ -77,7 +77,7 @@ Item {
             Text {
                 id: nameText
                 width: parent.width
-                y: 120
+                y: 110
                 anchors.horizontalCenter: parent.horizontalCenter
                 horizontalAlignment: Text.AlignHCenter
                 text: (realName === "") ? name : realName
