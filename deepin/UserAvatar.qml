@@ -10,11 +10,11 @@ Canvas {
     onPaint: {
         var ctx = getContext("2d");
         ctx.beginPath()
-        ctx.ellipse(1, 1, width - 2, height - 2)
+        ctx.ellipse(2, 2, width - 4, height - 4)
         ctx.clip()
-        ctx.drawImage(source, 1, 1, width - 2, height - 2)
+        ctx.drawImage(source, 2, 2, width - 4, height - 4)
         ctx.strokeStyle = "#ffffff"
-        ctx.lineWidth = 6
+        ctx.lineWidth = 8
         ctx.stroke()
     }
 
