@@ -77,8 +77,11 @@ Item {
             Text {
                 id: nameText
                 width: parent.width
-                y: 110
-                anchors.horizontalCenter: parent.horizontalCenter
+                anchors {
+                    top: iconButton.bottom
+                    topMargin: 10
+                    horizontalCenter: parent.horizontalCenter
+                }
                 horizontalAlignment: Text.AlignHCenter
                 text: (realName === "") ? name : realName
                 font.pointSize: 14
