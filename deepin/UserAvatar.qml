@@ -28,7 +28,6 @@ Canvas {
 
     // FIXME: source value not initialized during first paint
     Timer {
-        id: delayPaintTimer
         repeat: false
         interval: 10
         onTriggered: avatar.requestPaint()
