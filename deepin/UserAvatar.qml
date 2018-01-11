@@ -6,7 +6,8 @@ Canvas {
 
     signal clicked()
 
-    onSourceChanged: delayPaintTimer.running = true
+    onSourceChanged: avatar.requestPaint()
+
     onPaint: {
         var ctx = getContext("2d");
         ctx.clearRect(0, 0, width, height)
@@ -26,11 +27,11 @@ Canvas {
         onClicked: avatar.clicked()
     }
 
-    // Fixme: paint() not affect event if source is not empty in initialization
+    // FIXME: source value not initialized during first paint
     Timer {
         id: delayPaintTimer
         repeat: false
-        interval: 150
+        interval: 10
         onTriggered: avatar.requestPaint()
         running: true
     }
