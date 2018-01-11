@@ -11,11 +11,10 @@ Canvas {
     onPaint: {
         var ctx = getContext("2d");
         ctx.clearRect(0, 0, width, height)
-        ctx.moveTo(0.5, 0.5) // """Anti-aliasing"""
         ctx.beginPath()
-        ctx.ellipse(2, 2, width - 4, height - 4)
+        ctx.ellipse(2.5, 2.5, width - 5, height - 5)
         ctx.clip()
-        ctx.drawImage(source, 2, 2, width - 4, height - 4)
+        ctx.drawImage(source, 2.5, 2.5, width - 5, height - 5)
         ctx.strokeStyle = "#ffffff"
         ctx.lineWidth = 8
         ctx.stroke()
