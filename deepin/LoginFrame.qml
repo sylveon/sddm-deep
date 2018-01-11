@@ -1,18 +1,19 @@
 import QtQuick 2.0
+import QtQuick.Controls 2.1
 import QtGraphicalEffects 1.0
 import SddmComponents 2.0
 
 Item {
     id: frame
     property int sessionIndex: sessionModel.lastIndex
-    property bool isProcessing: glowAnimation.running
+    property bool isProcessing: loadAnimation.visible
     property alias input: passwdInput
     property alias button: loginButton
 
     Connections {
         target: sddm
         onLoginSucceeded: {
-            glowAnimation.running = false
+            loadAnimation.visible = false
             Qt.quit()
         }
         onLoginFailed: {
@@ -20,7 +21,7 @@ Item {
             passwdInput.text = textConstants.loginFailed
             passwdInput.focus = false
             passwdInput.color = "#e7b222"
-            glowAnimation.running = false
+            loadAnimation.visible = false
         }
     }
 
@@ -46,21 +47,15 @@ Item {
             }
         }
 
-        Glow {
-            id: avatarGlow
-            anchors.fill: userIconRec
-            radius: 0
-            samples: 17
-            color: "#99ffffff"
-            source: userIconRec
+        ProgressBar {
+            visible: false
+            indeterminate: true
+            id: loadAnimation
 
-            SequentialAnimation on radius {
-                id: glowAnimation
-                running: false
-                alwaysRunToEnd: true
-                loops: Animation.Infinite
-                PropertyAnimation { to: 20 ; duration: 1000}
-                PropertyAnimation { to: 0 ; duration: 1000}
+            anchors {
+                top: userNameText.bottom
+                topMargin: 20
+                horizontalCenter: parent.horizontalCenter
             }
         }
 
@@ -111,7 +106,7 @@ Item {
                     }
                 }
                 onAccepted: {
-                    glowAnimation.running = true
+                    loadAnimation.visible = true
                     sddm.login(userFrame.currentUserName, passwdInput.text, sessionIndex)
                 }
                 KeyNavigation.backtab: {
@@ -145,7 +140,7 @@ Item {
                 hoverImg: "icons/login_normal.png"
                 pressImg: "icons/login_press.png"
                 onClicked: {
-                    glowAnimation.running = true
+                    loadAnimation.visible = true
                     sddm.login(userFrame.currentUserName, passwdInput.text, sessionIndex)
                 }
                 KeyNavigation.tab: shutdownButton
