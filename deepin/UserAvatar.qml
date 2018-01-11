@@ -10,8 +10,8 @@ Canvas {
 
     onPaint: {
         var ctx = getContext("2d");
-        ctx.clearRect(0, 0, width, height)
         ctx.beginPath()
+        ctx.clearRect(0, 0, width, height)
         ctx.ellipse(2.5, 2.5, width - 5, height - 5)
         ctx.clip()
         ctx.drawImage(source, 2.5, 2.5, width - 5, height - 5)
