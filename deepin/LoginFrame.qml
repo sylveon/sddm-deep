@@ -17,10 +17,10 @@ Item {
             Qt.quit()
         }
         onLoginFailed: {
-            passwdInput.echoMode = TextInput.Normal
-            passwdInput.text = textConstants.loginFailed
             passwdInput.focus = false
-            passwdInput.color = "#e7b222"
+            passwdInput.color = "red"
+            passwdInputRec.color = "#55ff0000"
+            wrongPasswordShake.running = true
             loadAnimation.visible = false
         }
     }
@@ -52,11 +52,9 @@ Item {
             indeterminate: true
             id: loadAnimation
 
-            anchors {
-                top: userNameText.bottom
-                topMargin: 20
-                horizontalCenter: parent.horizontalCenter
-            }
+            background.visible: false
+
+            anchors.fill: passwdInputRec
         }
 
         Text {
@@ -78,12 +76,13 @@ Item {
             anchors {
                 top: userNameText.bottom
                 topMargin: 10
-                horizontalCenter: parent.horizontalCenter
             }
             width: 300
             height: 35
             radius: 3
             color: "#55000000"
+
+            x: (centerArea.width - width) / 2
 
             TextInput {
                 id: passwdInput
@@ -101,8 +100,8 @@ Item {
                 onFocusChanged: {
                     if (focus) {
                         color = textColor
-                        echoMode = TextInput.Password
                         text = ""
+                        parent.color = "#55000000"
                     }
                 }
                 onAccepted: {
@@ -145,6 +144,29 @@ Item {
                 }
                 KeyNavigation.tab: shutdownButton
                 KeyNavigation.backtab: passwdInput
+            }
+
+            SequentialAnimation on x {
+                running: false
+                id: wrongPasswordShake
+                loops: 3
+
+                NumberAnimation {
+                    to: (centerArea.width - passwdInputRec.width) / 2 + 20
+                    duration: 25
+                }
+                NumberAnimation {
+                    to: (centerArea.width - passwdInputRec.width) / 2
+                    duration: 25
+                }
+                NumberAnimation {
+                    to: (centerArea.width - passwdInputRec.width) / 2 - 20
+                    duration: 25
+                }
+                NumberAnimation {
+                    to: (centerArea.width - passwdInputRec.width) / 2
+                    duration: 25
+                }
             }
         }
     }

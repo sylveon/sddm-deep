@@ -16,8 +16,6 @@ Rectangle {
     readonly property int m_powerButtonSize: 40
     readonly property color textColor: "#ffffff"
 
-    TextConstants { id: textConstants }
-
     states: [
         State {
             name: "statePower"
