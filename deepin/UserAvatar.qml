@@ -10,6 +10,7 @@ Item {
     Image {
         anchors.fill: parent
         source: parent.source
+        fillMode: Image.PreserveAspectCrop
 
         layer {
             enabled: true
