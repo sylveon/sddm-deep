@@ -1,5 +1,6 @@
 import QtQuick 2.0
 import QtQuick.Controls 2.1
+import QtQuick.Controls.Material 2.1
 import QtGraphicalEffects 1.0
 import SddmComponents 2.0
 
@@ -42,18 +43,19 @@ Item {
             height: 130
             source: userFrame.currentIconPath
             onClicked: {
-                root.state = "stateUser"
-                userFrame.focus = true
+                if (!isProcessing)
+                {
+                    root.state = "stateUser"
+                    userFrame.focus = true
+                }
             }
         }
 
         ProgressBar {
+            Material.accent: "white"
             visible: false
             indeterminate: true
             id: loadAnimation
-
-            background.visible: false
-
             anchors.fill: passwdInputRec
         }
 
