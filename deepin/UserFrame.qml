@@ -67,6 +67,7 @@ Item {
             UserAvatar {
                 id: iconButton
                 anchors.top: parent.top
+                anchors.topMargin: 5
                 anchors.horizontalCenter: parent.horizontalCenter
                 width: 100
                 height: 100
