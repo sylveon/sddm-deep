@@ -3,13 +3,13 @@ import QtGraphicalEffects 1.0
 
 Item {
     id: avatar
-    property string source: ""
+    property alias source: img.source
 
     signal clicked()
 
     Image {
+        id: img
         anchors.fill: parent
-        source: parent.source
         fillMode: Image.PreserveAspectCrop
 
         layer {
