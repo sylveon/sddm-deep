@@ -156,18 +156,17 @@ Item {
                 NumberAnimation {
                     to: (centerArea.width - passwdInputRec.width) / 2 + 20
                     duration: 25
-                }
-                NumberAnimation {
-                    to: (centerArea.width - passwdInputRec.width) / 2
-                    duration: 25
+                    easing.type: Easing.InCubic
                 }
                 NumberAnimation {
                     to: (centerArea.width - passwdInputRec.width) / 2 - 20
-                    duration: 25
+                    duration: 50
+                    easing.type: Easing.InCubic
                 }
                 NumberAnimation {
                     to: (centerArea.width - passwdInputRec.width) / 2
                     duration: 25
+                    easing.type: Easing.InCubic
                 }
             }
         }
