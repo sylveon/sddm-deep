@@ -1,36 +1,43 @@
 import QtQuick 2.2
+import QtGraphicalEffects 1.0
 
-Canvas {
+Item {
     id: avatar
     property string source: ""
 
     signal clicked()
 
-    onSourceChanged: avatar.requestPaint()
+    Image {
+        id: img
+        anchors.fill: parent
+        source: parent.source
 
-    onPaint: {
-        var ctx = getContext("2d");
-        ctx.beginPath()
-        ctx.clearRect(0, 0, width, height)
-        ctx.ellipse(2.5, 2.5, width - 5, height - 5)
-        ctx.clip()
-        ctx.drawImage(source, 2.5, 2.5, width - 5, height - 5)
-        ctx.strokeStyle = "#ffffff"
-        ctx.lineWidth = 8
-        ctx.stroke()
-        ctx.closePath()
+        layer.enabled: true
+        layer.effect: OpacityMask {
+            maskSource: Item {
+                width: img.width
+                height: img.height
+                Rectangle {
+                    anchors.fill: parent
+                    radius: width
+                }
+            }
+        }
+    }
+
+    Rectangle {
+        anchors.fill: parent
+        radius: width
+
+        border {
+            width: 6
+            color: "white"
+        }
+        color: "transparent"
     }
 
     MouseArea {
         anchors.fill: parent
         onClicked: avatar.clicked()
-    }
-
-    // FIXME: source value not initialized during first paint
-    Timer {
-        repeat: false
-        interval: 10
-        onTriggered: avatar.requestPaint()
-        running: true
     }
 }
