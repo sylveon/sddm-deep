@@ -8,26 +8,28 @@ Item {
     signal clicked()
 
     Image {
-        id: img
         anchors.fill: parent
         source: parent.source
 
-        layer.enabled: true
-        layer.effect: OpacityMask {
-            maskSource: Item {
-                width: img.width
-                height: img.height
-                Rectangle {
-                    anchors.fill: parent
-                    radius: width
-                }
+        layer {
+            enabled: true
+            effect: OpacityMask {
+                maskSource: avatarMask
             }
         }
     }
 
     Rectangle {
+        id: avatarMask
         anchors.fill: parent
-        radius: width
+        radius: width / 2
+        visible: false
+    }
+
+    Rectangle {
+        id: avatarBorder
+        anchors.fill: parent
+        radius: width / 2
 
         border {
             width: 6
@@ -38,6 +40,13 @@ Item {
 
     MouseArea {
         anchors.fill: parent
+        hoverEnabled: true
+        onEntered: {
+            avatarBorder.border.color = "#77ffffff"
+        }
+        onExited: {
+            avatarBorder.border.color = "white"
+        }
         onClicked: avatar.clicked()
     }
 }
