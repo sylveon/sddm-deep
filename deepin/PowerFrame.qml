@@ -18,6 +18,7 @@ Item {
         Item {
             width: 100
             height: 150
+            visible: sddm.canPowerOff
 
             ImgButton {
                 id: shutdownButton
@@ -29,9 +30,6 @@ Item {
                 hoverImg: "icons/powerframe/shutdown_hover.png"
                 pressImg: "icons/powerframe/shutdown_press.png"
                 onClicked: needShutdown()
-                KeyNavigation.right: restartButton
-                KeyNavigation.left: suspendButton
-                Keys.onEscapePressed: needClose()
             }
 
             Text {
@@ -48,6 +46,7 @@ Item {
         Item {
             width: 100
             height: 150
+            visible: sddm.canReboot
 
             ImgButton {
                 id: restartButton
@@ -59,9 +58,6 @@ Item {
                 hoverImg: "icons/powerframe/restart_hover.png"
                 pressImg: "icons/powerframe/restart_press.png"
                 onClicked: needRestart()
-                KeyNavigation.right: suspendButton
-                KeyNavigation.left: shutdownButton
-                Keys.onEscapePressed: needClose()
             }
 
             Text {
@@ -78,6 +74,7 @@ Item {
         Item {
             width: 100
             height: 150
+            visible: sddm.canSuspend
 
             ImgButton {
                 id: suspendButton
@@ -89,9 +86,6 @@ Item {
                 hoverImg: "icons/powerframe/suspend_hover.png"
                 pressImg: "icons/powerframe/suspend_press.png"
                 onClicked: needSuspend()
-                KeyNavigation.right: shutdownButton
-                KeyNavigation.left: restartButton
-                Keys.onEscapePressed: needClose()
             }
 
             Text {

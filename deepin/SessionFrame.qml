@@ -106,24 +106,6 @@ Item {
                 color: "white"
                 wrapMode: Text.WordWrap
             }
-
-            Keys.onLeftPressed: {
-                sessionList.decrementCurrentIndex()
-                sessionList.currentItem.forceActiveFocus()
-            }
-            Keys.onRightPressed: {
-                sessionList.incrementCurrentIndex()
-                sessionList.currentItem.forceActiveFocus()
-            }
-            Keys.onEscapePressed: needClose()
-            Keys.onEnterPressed: {
-                selected(index)
-                sessionList.currentIndex = index
-            }
-            Keys.onReturnPressed: {
-                selected(index)
-                sessionList.currentIndex = index
-            }
         }
     }
 

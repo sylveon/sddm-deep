@@ -1,5 +1,3 @@
-/***********************************************************************/
-
 import QtQuick 2.0
 import QtGraphicalEffects 1.0
 import SddmComponents 2.0
@@ -52,14 +50,23 @@ Rectangle {
 
     ]
     transitions: Transition {
-        PropertyAnimation { duration: 100; properties: "opacity";  }
-        PropertyAnimation { duration: 300; properties: "radius"; }
+        PropertyAnimation {
+            duration: 100
+            properties: "opacity"
+        }
+        PropertyAnimation {
+            duration: 300
+            properties: "radius"
+        }
     }
 
     Repeater {
         model: screenModel
         Background {
-            x: geometry.x; y: geometry.y; width: geometry.width; height:geometry.height
+            x: geometry.x
+            y: geometry.y
+            width: geometry.width
+            height: geometry.height
             source: config.background
             fillMode: Image.Tile
             onStatusChanged: {
@@ -73,7 +80,10 @@ Rectangle {
     Item {
         id: mainFrame
         property variant geometry: screenModel.geometry(screenModel.primary)
-        x: geometry.x; y: geometry.y; width: geometry.width; height: geometry.height
+        x: geometry.x
+        y: geometry.y
+        width: geometry.width
+        height: geometry.height
 
         Image {
             id: mainFrameBackground
@@ -113,7 +123,6 @@ Rectangle {
                 anchors.fill: parent
                 enabled: root.state == "stateSession"
                 onSelected: {
-                    console.log("Selected session:", index)
                     root.state = "stateLogin"
                     loginFrame.sessionIndex = index
                     loginFrame.input.forceActiveFocus()
@@ -129,7 +138,6 @@ Rectangle {
                 anchors.fill: parent
                 enabled: root.state == "stateUser"
                 onSelected: {
-                    console.log("Select user:", userName)
                     root.state = "stateLogin"
                     loginFrame.input.forceActiveFocus()
                 }
@@ -150,7 +158,7 @@ Rectangle {
 
         Item {
             id: timeArea
-            visible: ! loginFrame.isProcessing
+            visible: !loginFrame.isProcessing
             anchors {
                 bottom: parent.bottom
                 left: parent.left
@@ -210,7 +218,7 @@ Rectangle {
 
         Item {
             id: powerArea
-            visible: ! loginFrame.isProcessing
+            visible: !loginFrame.isProcessing
             anchors {
                 bottom: parent.bottom
                 right: parent.right
@@ -234,17 +242,6 @@ Rectangle {
                         root.state = "stateSession"
                         sessionFrame.focus = true
                     }
-                    onEnterPressed: sessionFrame.currentItem.forceActiveFocus()
-
-                    KeyNavigation.tab: loginFrame.input
-                    KeyNavigation.backtab: {
-                        if (userButton.visible) {
-                            return userButton
-                        }
-                        else {
-                            return shutdownButton
-                        }
-                    }
                 }
 
                 ImgButton {
@@ -257,19 +254,8 @@ Rectangle {
                     hoverImg: "icons/switchframe/userswitch_hover.png"
                     pressImg: "icons/switchframe/userswitch_press.png"
                     onClicked: {
-                        console.log("Switch User...")
                         root.state = "stateUser"
                         userFrame.focus = true
-                    }
-                    onEnterPressed: userFrame.currentItem.forceActiveFocus()
-                    KeyNavigation.backtab: shutdownButton
-                    KeyNavigation.tab: {
-                        if (sessionButton.visible) {
-                            return sessionButton
-                        }
-                        else {
-                            return loginFrame.input
-                        }
                     }
                 }
 
@@ -277,26 +263,14 @@ Rectangle {
                     id: shutdownButton
                     width: m_powerButtonSize
                     height: m_powerButtonSize
-                    visible: true//sddm.canPowerOff
+                    visible: sddm.canPowerOff || sddm.canReboot || sddm.canSuspend
 
-                    normalImg: "icons/switchframe/powermenu.png"
+                    normalImg: "icons/switchframe/shutdown_normal.png"
+                    hoverImg: "icons/switchframe/shutdown_hover.png"
+                    pressImg: "icons/switchframe/shutdown_press.png"
                     onClicked: {
-                        console.log("Show shutdown menu")
                         root.state = "statePower"
                         powerFrame.focus = true
-                    }
-                    onEnterPressed: powerFrame.shutdown.focus = true
-                    KeyNavigation.backtab: loginFrame.button
-                    KeyNavigation.tab: {
-                        if (userButton.visible) {
-                            return userButton
-                        }
-                        else if (sessionButton.visible) {
-                            return sessionButton
-                        }
-                        else {
-                            return loginFrame.input
-                        }
                     }
                 }
             }

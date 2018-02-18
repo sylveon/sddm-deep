@@ -43,8 +43,7 @@ Item {
             height: 130
             source: userFrame.currentIconPath
             onClicked: {
-                if (!isProcessing)
-                {
+                if (!isProcessing) {
                     root.state = "stateUser"
                     userFrame.focus = true
                 }
@@ -89,14 +88,14 @@ Item {
             TextInput {
                 id: passwdInput
                 anchors.fill: parent
-                anchors.leftMargin: 8
-                anchors.rightMargin: 8 + 36
+                anchors.leftMargin: 4
+                anchors.rightMargin: 4 + 30
                 clip: true
                 focus: true
                 color: textColor
                 font.pointSize: 15
                 selectByMouse: true
-                selectionColor: "#a8d6ec"
+                selectionColor: "#33ffffff"
                 echoMode: TextInput.Password
                 verticalAlignment: TextInput.AlignVCenter
                 onFocusChanged: {
@@ -110,18 +109,6 @@ Item {
                     loadAnimation.visible = true
                     sddm.login(userFrame.currentUserName, passwdInput.text, sessionIndex)
                 }
-                KeyNavigation.backtab: {
-                    if (sessionButton.visible) {
-                        return sessionButton
-                    }
-                    else if (userButton.visible) {
-                        return userButton
-                    }
-                    else {
-                        return shutdownButton
-                    }
-                }
-                KeyNavigation.tab: loginButton
                 Timer {
                     interval: 200
                     running: true
@@ -144,8 +131,6 @@ Item {
                     loadAnimation.visible = true
                     sddm.login(userFrame.currentUserName, passwdInput.text, sessionIndex)
                 }
-                KeyNavigation.tab: shutdownButton
-                KeyNavigation.backtab: passwdInput
             }
 
             SequentialAnimation on x {
