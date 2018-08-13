@@ -21,6 +21,7 @@ Item {
             passwdInput.focus = false
             passwdInput.color = "red"
             passwdInputRec.color = "#55ff0000"
+            loginButtonOverlay.color = "#55ff0000"
             wrongPasswordShake.running = true
             loadAnimation.visible = false
         }
@@ -103,6 +104,7 @@ Item {
                         color = textColor
                         text = ""
                         parent.color = "#99000000"
+                        loginButtonOverlay.color = "#00000000"
                     }
                 }
                 onAccepted: {
@@ -130,6 +132,13 @@ Item {
                     loadAnimation.visible = true
                     sddm.login(userFrame.currentUserName, passwdInput.text, sessionIndex)
                 }
+
+            ColorOverlay {
+                id: loginButtonOverlay
+                anchors.fill: loginButton
+                cached: true
+                source: loginButton
+                color: "#00000000"
             }
 
             SequentialAnimation on x {
