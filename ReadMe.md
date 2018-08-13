@@ -7,7 +7,6 @@ Background image by [Alex Knight](https://unsplash.com/@agkdesign) on Unsplash.
 ## Dependencies (Arch Linux)
 
  - qt5-graphicaleffects
- - qt5-quickcontrols
  - qt5-quickcontrols2
 
 ## Installation
