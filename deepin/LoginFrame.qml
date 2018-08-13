@@ -117,6 +117,7 @@ Item {
                     onTriggered: passwdInput.forceActiveFocus()
                 }
             }
+
             ImgButton {
                 id: loginButton
                 height: passwdInput.height
@@ -132,6 +133,7 @@ Item {
                     loadAnimation.visible = true
                     sddm.login(userFrame.currentUserName, passwdInput.text, sessionIndex)
                 }
+            }
 
             ColorOverlay {
                 id: loginButtonOverlay

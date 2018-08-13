@@ -19,7 +19,7 @@ Rectangle {
             PropertyChanges { target: powerFrame; opacity: 1}
             PropertyChanges { target: sessionFrame; opacity: 0}
             PropertyChanges { target: userFrame; opacity: 0}
-            PropertyChanges { target: bgBlur; radius: 10}
+            PropertyChanges { target: bgBlur; radius: 7.5}
         },
         State {
             name: "stateSession"
@@ -27,7 +27,7 @@ Rectangle {
             PropertyChanges { target: powerFrame; opacity: 0}
             PropertyChanges { target: sessionFrame; opacity: 1}
             PropertyChanges { target: userFrame; opacity: 0}
-            PropertyChanges { target: bgBlur; radius: 10}
+            PropertyChanges { target: bgBlur; radius: 7.5}
         },
         State {
             name: "stateUser"
@@ -35,7 +35,7 @@ Rectangle {
             PropertyChanges { target: powerFrame; opacity: 0}
             PropertyChanges { target: sessionFrame; opacity: 0}
             PropertyChanges { target: userFrame; opacity: 1}
-            PropertyChanges { target: bgBlur; radius: 10}
+            PropertyChanges { target: bgBlur; radius: 7.5}
         },
         State {
             name: "stateLogin"
@@ -51,10 +51,6 @@ Rectangle {
         PropertyAnimation {
             duration: 100
             properties: "opacity"
-        }
-        PropertyAnimation {
-            duration: 300
-            properties: "radius"
         }
     }
 
@@ -87,13 +83,12 @@ Rectangle {
             }
         }
 
-        GaussianBlur {
+        RecursiveBlur {
             id: bgBlur
             anchors.fill: mainFrameBackground
             cached: true
-            deviation: 4
+            loops: 20
             radius: 0
-            samples: 20
             source: mainFrameBackground
         }
 
