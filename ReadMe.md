@@ -11,6 +11,6 @@ Background image by [Alex Knight](https://unsplash.com/@agkdesign) on Unsplash.
 
 ## Installation
 
-```sh
-$ sudo git clone https://github.com/sylveon/sddm-deep /usr/share/sddm/themes/deep
-```
+1. Clone this repository.
+2. Copy (or move) the `deep` folder to `/usr/share/sddm/themes`.
+3. Edit your SDDM (or Plasma) configuration to use this theme.
