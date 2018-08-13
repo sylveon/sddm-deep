@@ -44,7 +44,7 @@ Item {
             height: 130
             source: userFrame.currentIconPath
             onClicked: {
-                if (!isProcessing) {
+                if (!isProcessing && userFrame.isMultipleUsers()) {
                     root.state = "stateUser"
                     userFrame.focus = true
                 }

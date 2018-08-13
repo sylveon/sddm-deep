@@ -12,6 +12,11 @@ Rectangle {
     readonly property int m_powerButtonSize: 40
     readonly property color textColor: "#ffffff"
 
+    function returnToLogin() {
+        root.state = "stateLogin"
+        loginFrame.input.forceActiveFocus()
+    }
+
     states: [
         State {
             name: "statePower"
@@ -103,10 +108,7 @@ Rectangle {
                 id: powerFrame
                 anchors.fill: parent
                 enabled: root.state == "statePower"
-                onNeedClose: {
-                    root.state = "stateLogin"
-                    loginFrame.input.forceActiveFocus()
-                }
+                onNeedClose: returnToLogin()
                 onNeedShutdown: sddm.powerOff()
                 onNeedRestart: sddm.reboot()
                 onNeedSuspend: sddm.suspend()
@@ -117,28 +119,18 @@ Rectangle {
                 anchors.fill: parent
                 enabled: root.state == "stateSession"
                 onSelected: {
-                    root.state = "stateLogin"
                     loginFrame.sessionIndex = index
-                    loginFrame.input.forceActiveFocus()
+                    returnToLogin()
                 }
-                onNeedClose: {
-                    root.state = "stateLogin"
-                    loginFrame.input.forceActiveFocus()
-                }
+                onNeedClose: returnToLogin()
             }
 
             UserFrame {
                 id: userFrame
                 anchors.fill: parent
                 enabled: root.state == "stateUser"
-                onSelected: {
-                    root.state = "stateLogin"
-                    loginFrame.input.forceActiveFocus()
-                }
-                onNeedClose: {
-                    root.state = "stateLogin"
-                    loginFrame.input.forceActiveFocus()
-                }
+                onSelected: returnToLogin()
+                onNeedClose: returnToLogin()
             }
 
             LoginFrame {
@@ -226,16 +218,25 @@ Rectangle {
                 anchors.rightMargin: hMargin
                 anchors.verticalCenter: parent.verticalCenter
 
+                function frameButtonClick(frame, state) {
+                    if (root.state != state)
+                    {
+                        root.state = state
+                        frame.focus = true
+                    }
+                    else
+                    {
+                        frame.needClose()
+                    }
+                }
+
                 ImgButton {
                     id: sessionButton
                     width: m_powerButtonSize
                     height: m_powerButtonSize
                     visible: sessionFrame.isMultipleSessions()
                     normalImg: sessionFrame.getCurrentSessionIconIndicator()
-                    onClicked: {
-                        root.state = "stateSession"
-                        sessionFrame.focus = true
-                    }
+                    onClicked: parent.frameButtonClick(sessionFrame, "stateSession")
                 }
 
                 ImgButton {
@@ -247,10 +248,7 @@ Rectangle {
                     normalImg: "icons/switchframe/userswitch_normal.png"
                     hoverImg: "icons/switchframe/userswitch_hover.png"
                     pressImg: "icons/switchframe/userswitch_press.png"
-                    onClicked: {
-                        root.state = "stateUser"
-                        userFrame.focus = true
-                    }
+                    onClicked: parent.frameButtonClick(userFrame, "stateUser")
                 }
 
                 ImgButton {
@@ -262,10 +260,7 @@ Rectangle {
                     normalImg: "icons/switchframe/shutdown_normal.png"
                     hoverImg: "icons/switchframe/shutdown_hover.png"
                     pressImg: "icons/switchframe/shutdown_press.png"
-                    onClicked: {
-                        root.state = "statePower"
-                        powerFrame.focus = true
-                    }
+                    onClicked: parent.frameButtonClick(powerFrame, "statePower")
                 }
             }
         }

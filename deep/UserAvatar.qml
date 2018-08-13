@@ -43,8 +43,10 @@ Item {
         anchors.fill: parent
         hoverEnabled: true
         onEntered: {
-            if (!frame.isProcessing)
+            if (!frame.isProcessing && userFrame.isMultipleUsers())
+            {
                 avatarBorder.border.color = "#77ffffff"
+            }
         }
         onExited: {
             avatarBorder.border.color = "white"
