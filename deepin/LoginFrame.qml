@@ -81,7 +81,7 @@ Item {
             width: 300
             height: 35
             radius: 3
-            color: "#55000000"
+            color: "#99000000"
 
             x: (centerArea.width - width) / 2
 
@@ -102,7 +102,7 @@ Item {
                     if (focus) {
                         color = textColor
                         text = ""
-                        parent.color = "#55000000"
+                        parent.color = "#99000000"
                     }
                 }
                 onAccepted: {
@@ -125,7 +125,6 @@ Item {
                 }
 
                 normalImg: "icons/login_normal.png"
-                hoverImg: "icons/login_normal.png"
                 pressImg: "icons/login_press.png"
                 onClicked: {
                     loadAnimation.visible = true

@@ -1,12 +1,10 @@
-import QtQuick 2.0
+import QtQuick 2.3
 import QtGraphicalEffects 1.0
 import SddmComponents 2.0
 
 
 Rectangle {
     id: root
-    width: 640
-    height: 480
     state: "stateLogin"
 
     readonly property int hMargin: 40
@@ -21,7 +19,7 @@ Rectangle {
             PropertyChanges { target: powerFrame; opacity: 1}
             PropertyChanges { target: sessionFrame; opacity: 0}
             PropertyChanges { target: userFrame; opacity: 0}
-            PropertyChanges { target: bgBlur; radius: 30}
+            PropertyChanges { target: bgBlur; radius: 10}
         },
         State {
             name: "stateSession"
@@ -29,7 +27,7 @@ Rectangle {
             PropertyChanges { target: powerFrame; opacity: 0}
             PropertyChanges { target: sessionFrame; opacity: 1}
             PropertyChanges { target: userFrame; opacity: 0}
-            PropertyChanges { target: bgBlur; radius: 30}
+            PropertyChanges { target: bgBlur; radius: 10}
         },
         State {
             name: "stateUser"
@@ -37,7 +35,7 @@ Rectangle {
             PropertyChanges { target: powerFrame; opacity: 0}
             PropertyChanges { target: sessionFrame; opacity: 0}
             PropertyChanges { target: userFrame; opacity: 1}
-            PropertyChanges { target: bgBlur; radius: 30}
+            PropertyChanges { target: bgBlur; radius: 10}
         },
         State {
             name: "stateLogin"
@@ -60,23 +58,6 @@ Rectangle {
         }
     }
 
-    Repeater {
-        model: screenModel
-        Background {
-            x: geometry.x
-            y: geometry.y
-            width: geometry.width
-            height: geometry.height
-            source: config.background
-            fillMode: Image.Tile
-            onStatusChanged: {
-                if (status == Image.Error && source !== config.defaultBackground) {
-                    source = config.defaultBackground
-                }
-            }
-        }
-    }
-
     Item {
         id: mainFrame
         property variant geometry: screenModel.geometry(screenModel.primary)
@@ -85,17 +66,35 @@ Rectangle {
         width: geometry.width
         height: geometry.height
 
-        Image {
+        Item {
             id: mainFrameBackground
             anchors.fill: parent
-            source: "background.jpg"
+
+            Image {
+                anchors.fill: parent
+                asynchronous: true
+                fillMode: Image.PreserveAspectCrop
+                mipmap: true
+                smooth: false
+                source: config.background
+                sourceSize.height: 3264
+                sourceSize.width: 4896
+            }
+
+            Rectangle {
+                anchors.fill: parent
+                color: "#55000000"
+            }
         }
 
-        FastBlur {
+        GaussianBlur {
             id: bgBlur
             anchors.fill: mainFrameBackground
-            source: mainFrameBackground
+            cached: true
+            deviation: 4
             radius: 0
+            samples: 20
+            source: mainFrameBackground
         }
 
         Item {
